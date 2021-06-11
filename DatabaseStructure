@@ -9,8 +9,8 @@ Table users {
 
 Ref: users.user_id < orders.user_id
 
-Table items {
-  item_id int [pk, increment]
+Table products {
+  product_id int [pk, increment]
   name varchar
   indications varchar
   manufacturer_info varchar
@@ -21,11 +21,11 @@ Table items {
   image byte_arr
 }
 
-Ref: items.item_id < order_items.item_id
+Ref: products.product_id < order_products.product_id
 
-Table order_items {
+Table order_products {
   order_id int [pk]
-  item_id int [pk]
+  product_id int [pk]
   quantity int [default: 1]
 }
 
@@ -36,5 +36,4 @@ Table orders {
   address varchar
 }
 
-Ref: orders.order_id < order_items.order_id
-
+Ref: orders.order_id < order_products.order_id
