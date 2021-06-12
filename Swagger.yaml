@@ -15,13 +15,13 @@ schemes:
   - "https"
   - "http"
 paths:
-  /item:
+  /product:
     post:
       tags:
-        - "item"
-      summary: "Add a new item to the pharmacy"
+        - "product"
+      summary: "Add a new product to the pharmacy"
       description: ""
-      operationId: "addItem"
+      operationId: "addProduct"
       consumes:
         - "application/json"
       produces:
@@ -29,19 +29,19 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "item that needs to be added to the pharmacy"
+          description: "product that needs to be added to the pharmacy"
           required: true
           schema:
-            $ref: "#/definitions/Item"
+            $ref: "#/definitions/Product"
       responses:
         "405":
           description: "Invalid input"
     put:
       tags:
-        - "item"
-      summary: "Update an existing item"
+        - "product"
+      summary: "Update an existing product"
       description: ""
-      operationId: "updateItem"
+      operationId: "updateProduct"
       consumes:
         - "application/json"
       produces:
@@ -49,58 +49,58 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Item object that needs to be added to the pharmacy"
+          description: "Product object that needs to be added to the pharmacy"
           required: true
           schema:
-            $ref: "#/definitions/Item"
+            $ref: "#/definitions/Product"
       responses:
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Item not found"
+          description: "Product not found"
         "405":
           description: "Validation exception"
     get:
       tags:
-        - "item"
-      summary: "Get list of items"
+        - "product"
+      summary: "Get list of products"
       description: ""
-      operationId: "getItems"
+      operationId: "getProducts"
       produces:
         - "application/json"
       parameters:
         - in: "body"
           name: "body"
-          description: "list of items in Catalog"
+          description: "list of products in Catalog"
           required: true
           schema:
             type: array
             items:
-              $ref: "#/definitions/Item"
+              $ref: "#/definitions/Product"
       responses:
         "200":
           description: "successful operation"
-  /item/{itemId}:
+  /product/{productId}:
     get:
       tags:
-        - "item"
-      summary: "Get detailed info about item"
+        - "product"
+      summary: "Get detailed info about product"
       description: ""
-      operationId: "getDetailedItemInfo"
+      operationId: "getDetailedProductInfo"
       produces:
         - "application/json"
       parameters:
-        - name: "itemId"
+        - name: "productId"
           in: "path"
-          description: "itemId og item that needs to be got"
+          description: "productId of product that needs to be got"
           required: true
           type: "integer"
         - in: "body"
           name: "body"
-          description: "list of items in Catalog"
+          description: "list of products in Catalog"
           required: true
           schema:
-            $ref: "#/definitions/Item"
+            $ref: "#/definitions/Product"
       responses:
         "200":
           description: "Valid get"
@@ -108,7 +108,7 @@ paths:
     post:
       tags:
         - "order"
-      summary: "Place an order for an item"
+      summary: "Place an order for product"
       description: ""
       operationId: "placeOrder"
       produces:
@@ -116,7 +116,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "order placed for purchasing items"
+          description: "order placed for purchasing products"
           required: true
           schema:
             $ref: "#/definitions/Order"
@@ -187,11 +187,11 @@ paths:
               $ref: "#/definitions/Order"
         "400":
           description: "Invalid status value"
-  /order/orderItem/{quantity}:
+  /order/orderProduct/{quantity}:
     put:
       tags:
         - "order"
-      summary: "Change quantity of items in order"
+      summary: "Change quantity of products in order"
       description: ""
       operationId: "changeQuantity"
       produces:
@@ -204,15 +204,15 @@ paths:
           type: "integer"
         - in: "body"
           name: "body"
-          description: "quantity of items in order"
+          description: "quantity of products in order"
           required: true
           schema:
-            $ref: "#/definitions/OrderItems"
+            $ref: "#/definitions/OrderProducts"
       responses:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/OrderItems"
+            $ref: "#/definitions/OrderProducts"
         "400":
           description: "Invalid Order"
   /user:
@@ -331,16 +331,16 @@ definitions:
         type: "string"
     xml:
       name: "Order"
-  OrderItems:
+  OrderProducts:
     type: "object"
     properties:
-      orderItemsId:
+      orderProductsId:
         type: "integer"
         format: "int64"
       orderId:
         type: "integer"
         format: "int64"
-      itemId:
+      productId:
         type: "integer"
         format: "int64"
       quantity:
@@ -360,10 +360,10 @@ definitions:
         type: "string"
     xml:
       name: "User"
-  Item:
+  Product:
     type: "object"
     properties:
-      itemId:
+      productId:
         type: "integer"
         format: "int64"
       name:
@@ -386,4 +386,4 @@ definitions:
         type: "string"
         format: "byte"
     xml:
-      name: "Item"
+      name: "Product"
