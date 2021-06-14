@@ -127,6 +127,7 @@ paths:
             $ref: "#/definitions/Order"
         "400":
           description: "Invalid Order"
+  /order/cart/:
     get:
       tags:
         - "order"
@@ -155,7 +156,38 @@ paths:
             $ref: "#/definitions/Order"
         "400":
           description: "Invalid Order"
-  /order/PlacedOrders:
+  /order/finished:
+    get:
+      tags:
+        - "order"
+      summary: "Get orders with status = finished"
+      description: ""
+      operationId: "getFinishedOrders"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "status"
+          in: "query"
+          description: "Status"
+          required: true
+          type: "string"
+          default: "finished"
+        - in: "body"
+          name: "body"
+          description: "finished orders"
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: "Invalid Order"
+  /order/all:
     get:
       tags:
         - "order"
@@ -176,7 +208,6 @@ paths:
               - "placed"
               - "approved"
               - "delivered"
-            default: "placed"
           collectionFormat: "multi"
       responses:
         "200":
@@ -187,7 +218,7 @@ paths:
               $ref: "#/definitions/Order"
         "400":
           description: "Invalid status value"
-  /order/orderProduct/{quantity}:
+  /order/orderProduct:
     put:
       tags:
         - "order"
@@ -198,7 +229,7 @@ paths:
         - "application/json"
       parameters:
         - name: "quantity"
-          in: "path"
+          in: "query"
           description: "Quantity"
           required: true
           type: "integer"
