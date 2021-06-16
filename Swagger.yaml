@@ -131,9 +131,9 @@ paths:
     get:
       tags:
         - "order"
-      summary: "Get order with status = stock"
+      summary: "Get order with status = cart"
       description: ""
-      operationId: "getStockOrder"
+      operationId: "getCartOrder"
       produces:
         - "application/json"
       parameters:
@@ -142,10 +142,10 @@ paths:
           description: "Status"
           required: true
           type: "string"
-          default: "stock"
+          default: "cart"
         - in: "body"
           name: "body"
-          description: "order in stock"
+          description: "order in cart"
           required: true
           schema:
             $ref: "#/definitions/Order"
@@ -154,6 +154,33 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Order"
+        "400":
+          description: "Invalid Order"
+    put:
+      tags:
+        - "order"
+      summary: "Change quantity of products in order"
+      description: ""
+      operationId: "changeQuantity"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "quantity"
+          in: "query"
+          description: "Quantity"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "quantity of products in order"
+          required: true
+          schema:
+            $ref: "#/definitions/OrderProducts"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderProducts"
         "400":
           description: "Invalid Order"
   /order/finished:
@@ -218,34 +245,6 @@ paths:
               $ref: "#/definitions/Order"
         "400":
           description: "Invalid status value"
-  /order/orderProduct:
-    put:
-      tags:
-        - "order"
-      summary: "Change quantity of products in order"
-      description: ""
-      operationId: "changeQuantity"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "quantity"
-          in: "query"
-          description: "Quantity"
-          required: true
-          type: "integer"
-        - in: "body"
-          name: "body"
-          description: "quantity of products in order"
-          required: true
-          schema:
-            $ref: "#/definitions/OrderProducts"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/OrderProducts"
-        "400":
-          description: "Invalid Order"
   /user:
     post:
       tags:
@@ -347,14 +346,11 @@ definitions:
       orderId:
         type: "integer"
         format: "int64"
-      userId:
-        type: "integer"
-        format: "int64"
       status:
         type: "string"
         description: "Order Status"
         enum:
-          - "stock"
+          - "cart"
           - "placed"
           - "approved"
           - "delivered"
@@ -365,9 +361,6 @@ definitions:
   OrderProducts:
     type: "object"
     properties:
-      orderProductsId:
-        type: "integer"
-        format: "int64"
       orderId:
         type: "integer"
         format: "int64"
@@ -387,7 +380,11 @@ definitions:
         type: "string"
       email:
         type: "string"
-      password:
+      passwordHash:
+        type: "string"
+      passwordSalt:
+        type: "string"
+      type:
         type: "string"
     xml:
       name: "User"
