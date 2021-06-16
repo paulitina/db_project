@@ -159,7 +159,7 @@ paths:
     put:
       tags:
         - "order"
-      summary: "Change quantity of products in order"
+      summary: "Change quantity of products in order with status = cart"
       description: ""
       operationId: "changeQuantity"
       produces:
@@ -181,37 +181,6 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/OrderProducts"
-        "400":
-          description: "Invalid Order"
-  /order/finished:
-    get:
-      tags:
-        - "order"
-      summary: "Get orders with status = finished"
-      description: ""
-      operationId: "getFinishedOrders"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "status"
-          in: "query"
-          description: "Status"
-          required: true
-          type: "string"
-          default: "finished"
-        - in: "body"
-          name: "body"
-          description: "finished orders"
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Order"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/Order"
         "400":
           description: "Invalid Order"
   /order/all:
@@ -361,9 +330,6 @@ definitions:
   OrderProducts:
     type: "object"
     properties:
-      orderId:
-        type: "integer"
-        format: "int64"
       productId:
         type: "integer"
         format: "int64"
