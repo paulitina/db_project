@@ -17,7 +17,7 @@ Table products {
   side_effects varchar
   quantity int [default: 0]
   price int
-  prescripted boolean
+  prescribed boolean
   image byte_arr
 }
 
