@@ -39,9 +39,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long productId, String name, String indications, String manufacturerInfo, String sideEffects,
+    public Product(String name, String indications, String manufacturerInfo, String sideEffects,
                    int quantity, int price, Boolean prescribed, Byte image) {
-        this.productId = productId;
         this.name = name;
         this.indications = indications;
         this.manufacturerInfo = manufacturerInfo;

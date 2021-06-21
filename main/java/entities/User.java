@@ -29,8 +29,7 @@ public class User{
     public User() {
     }
 
-    public User(Long userId, String userName, String email, String passwordHash, String passwordSalt, String type) {
-        this.userId = userId;
+    public User(String userName, String email, String passwordHash, String passwordSalt, String type) {
         this.userName = userName;
         this.email = email;
         this.passwordHash = passwordHash;
